@@ -1,4 +1,4 @@
-DOCKER_IMAGE=pointslope/datomic-pro-starter
+DOCKER_IMAGE=pointslope/docker-datomic
 DOCKER_TAG=0.9.5078
 
 .PHONY: all clean info

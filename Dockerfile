@@ -27,5 +27,5 @@ ENTRYPOINT ["bin/transactor"]
 # transactor.properties file it will supplement the ENTRYPOINT
 VOLUME $DATOMIC_DATA
 
-EXPOSE 4334
+EXPOSE 4334 4335 4336
 

@@ -1,5 +1,5 @@
 DOCKER_IMAGE=pointslope/docker-datomic
-DOCKER_TAG=0.9.5078
+DOCKER_TAG?=$(shell ./datomic-version)
 
 .PHONY: all clean info
 

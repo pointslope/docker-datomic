@@ -21,7 +21,7 @@ No other configuration is necessary. Simply **docker build** and **docker run** 
     
 ## Example Dockerfile
 
-    FROM pointslope/docker-datomic:0.9.5078
+    FROM pointslope/docker-datomic:0.9.5130
     MAINTAINER Christian Romney "cromney@pointslope.com"
     CMD ["config/dev-transactor.properties"]
 
@@ -33,7 +33,7 @@ The Dockerfile **EXPOSES** port 4334 and establises a **VOLUME** at `/opt/datomi
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Point Slope, LLC.
+Copyright (c) 2014-2015 Point Slope, LLC.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -21,17 +21,6 @@ ONBUILD ADD config $DATOMIC_HOME/config
 
 WORKDIR $DATOMIC_HOME
 
-# You can optionally load the mbrainz data
-# later like so:
-#
-#   docker exec <container> /data/restore-mbrainz.sh <storage>
-#
-# where <container> is the name or id of a running Datomic Pro Starter container
-# and <storage> is the storage type you are using e.g. dev
-# 
-# For more info see: https://github.com/Datomic/mbrainz-sample
-ADD restore-mbrainz.sh /data/restore-mbrainz.sh
-
 ENTRYPOINT ["bin/transactor"]
 
 # 3. Provide a CMD argument with the relative path to the

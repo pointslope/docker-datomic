@@ -18,11 +18,11 @@ No other configuration is necessary. Simply **docker build** and **docker run** 
     ├── Dockerfile
     └── config
         └── dev-transactor.properties
-    
+
 ## Example Dockerfile
 
-    FROM pointslope/datomic-pro-starter:0.9.5130
-    MAINTAINER Christian Romney "cromney@pointslope.com"
+    FROM pointslope/datomic-pro-starter:0.9.5327
+    MAINTAINER John Doe "jdoe@example.org"
     CMD ["config/dev-transactor.properties"]
 
 ## Miscellany

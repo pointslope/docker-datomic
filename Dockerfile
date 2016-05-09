@@ -1,4 +1,4 @@
-FROM pointslope/clojure:lein-2.5.3
+FROM pointslope/clojure:lein-2.6.1
 
 MAINTAINER Christian Romney "cromney@pointslope.com"
 

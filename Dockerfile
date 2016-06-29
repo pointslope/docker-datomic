@@ -2,7 +2,7 @@ FROM pointslope/clojure:lein-2.6.1
 
 MAINTAINER Christian Romney "cromney@pointslope.com"
 
-ENV DATOMIC_VERSION 0.9.5372
+ENV DATOMIC_VERSION 0.9.5385
 ENV DATOMIC_HOME /opt/datomic-pro-$DATOMIC_VERSION
 ENV DATOMIC_DATA $DATOMIC_HOME/data
 

@@ -1,6 +1,6 @@
 # Datomic Pro Starter
 
-This Dockerfile defines a base image for Datomic Pro Starter Edition.
+This Dockerfile defines a base image for [Datomic Pro Starter Edition](http://www.datomic.com/).
 It defines the necessary automation steps for running Datomic, while
 deferring all privileged, user-specific configuration to a derived
 image via **ONBUILD** instructions.

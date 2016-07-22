@@ -1,8 +1,13 @@
 # Datomic Pro Starter
 
-This Dockerfile defines a base image for Datomic Pro Starter Edition. It defines the necessary automation steps for running Datomic, while deferring all privileged, user-specific configuration to a derived image via **ONBUILD** instructions.
+This Dockerfile defines a base image for Datomic Pro Starter Edition.
+It defines the necessary automation steps for running Datomic, while
+deferring all privileged, user-specific configuration to a derived
+image via **ONBUILD** instructions.
 
-This approach makes it trivial to customize your own Dockerfile to run any supported Datomic configuration. To do so, you need only to follow these steps:
+This approach makes it trivial to customize your own Dockerfile to run
+any supported Datomic configuration. To do so, you need only to follow
+these steps:
 
 1. Create a `Dockerfile` that is based **FROM** this image
 2. Create a `.credentials` file containing your http user and password for downloading from **my.datomic.com** in the form `user:pass`

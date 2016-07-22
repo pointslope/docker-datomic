@@ -1,10 +1,12 @@
-FROM pointslope/clojure:lein-2.6.1
+FROM clojure:lein-2.6.1-alpine
 
 MAINTAINER Christian Romney "cromney@pointslope.com"
 
 ENV DATOMIC_VERSION 0.9.5385
 ENV DATOMIC_HOME /opt/datomic-pro-$DATOMIC_VERSION
 ENV DATOMIC_DATA $DATOMIC_HOME/data
+
+RUN apk add --no-cache unzip curl
 
 # Datomic Pro Starter as easy as 1-2-3
 # 1. Create a .credentials file containing user:pass
@@ -20,8 +22,8 @@ ONBUILD RUN curl -u $(cat /tmp/.credentials) -SL https://my.datomic.com/repo/com
 ONBUILD ADD config $DATOMIC_HOME/config
 
 WORKDIR $DATOMIC_HOME
-
-ENTRYPOINT ["bin/transactor"]
+RUN echo DATOMIC HOME: $DATOMIC_HOME
+ENTRYPOINT ["./bin/transactor"]
 
 # 3. Provide a CMD argument with the relative path to the
 # transactor.properties file it will supplement the ENTRYPOINT

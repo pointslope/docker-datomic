@@ -1,2 +1,2 @@
 #!/bin/bash
-grep DATOMIC_VERSION Dockerfile | head -n1 | awk '{print $3}'
+grep DATOMIC_VERSION Dockerfile | head -n1 | awk '{print $3"-alpine"}'

@@ -26,7 +26,7 @@ No other configuration is necessary. Simply **docker build** and **docker run** 
 
 ## Example Dockerfile
 
-    FROM pointslope/datomic-pro-starter:0.9.5385
+    FROM pointslope/datomic-pro-starter:0.9.5390
     MAINTAINER John Doe "jdoe@example.org"
     CMD ["config/dev-transactor.properties"]
 

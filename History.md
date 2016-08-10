@@ -1,13 +1,15 @@
 
-0.9.5385-alpine / 2016-07-22
-============================
+0.9.5390 / 2016-08-10
+==================
+Updated to Datomic version 0.9.5390
 
+0.9.5385-alpine / 2016-07-22
+=============================
 50% image size reduction
 Now based on official clojure:lein-2.6.1-alpine image 
 
 0.9.5385 / 2016-06-29
 =====================
-
 Updated to Datomic version 0.9.5385
 
 0.9.5372 / 2016-06-23
@@ -21,6 +23,5 @@ Updated Leiningen to 2.6.1
 
 0.9.5344 / 2015-12-10
 =====================
-
 Updated and tagged Datomic version 0.9.5344.
 Fixes broken console shipped in previous release.

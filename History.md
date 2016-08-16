@@ -1,4 +1,8 @@
 
+0.9.5394 / 2016-08-16
+==================
+Updated to Datomic version 0.9.5394
+
 0.9.5390 / 2016-08-10
 ==================
 Updated to Datomic version 0.9.5390

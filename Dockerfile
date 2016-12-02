@@ -2,7 +2,7 @@ FROM clojure:lein-2.6.1-alpine
 
 MAINTAINER Christian Romney "cromney@pointslope.com"
 
-ENV DATOMIC_VERSION 0.9.5394
+ENV DATOMIC_VERSION 0.9.5530
 ENV DATOMIC_HOME /opt/datomic-pro-$DATOMIC_VERSION
 ENV DATOMIC_DATA $DATOMIC_HOME/data
 

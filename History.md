@@ -1,4 +1,12 @@
 
+0.9.5530 / 2016-12-02
+==================
+Updated to Datomic version 0.9.5530
+
+This is a terrific update. This version is no longer subject
+to the 2-peer limit and unlocks all of Datomic Pro's features
+including HA and caching.
+
 0.9.5394 / 2016-08-16
 ==================
 Updated to Datomic version 0.9.5394

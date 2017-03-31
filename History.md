@@ -1,3 +1,6 @@
+0.9.5561 / 2017-03-30
+==================
+Updated to Datomic version 0.9.5561
 
 0.9.5544 / 2016-12-08
 ==================
@@ -22,7 +25,7 @@ Updated to Datomic version 0.9.5390
 0.9.5385-alpine / 2016-07-22
 =============================
 50% image size reduction
-Now based on official clojure:lein-2.6.1-alpine image 
+Now based on official clojure:lein-2.6.1-alpine image
 
 0.9.5385 / 2016-06-29
 =====================

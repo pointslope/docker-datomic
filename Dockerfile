@@ -1,6 +1,6 @@
 FROM clojure:lein-2.6.1-alpine
 
-MAINTAINER Christian Romney "cromney@pointslope.com"
+MAINTAINER Ray McDermott "ray.mcdermott@vdartdigital.com"
 
 RUN apk add --no-cache unzip curl
 
@@ -24,8 +24,6 @@ ONBUILD RUN curl -u $(cat /tmp/.credentials) -sSL $DATOMIC_URL -o /tmp/datomic.z
             && unzip -q /tmp/datomic.zip -d /opt   \
             && rm -f /tmp/datomic.zip              \
             && rm -f /tmp/.credentials
-
-ONBUILD RUN echo Installing Datomic to $DATOMIC_HOME
 
 ONBUILD ADD config $DATOMIC_HOME/config
 

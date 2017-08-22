@@ -31,13 +31,13 @@ No other configuration is necessary. Simply **docker build** and
 
 ## Example Dockerfile
 
-    FROM pointslope/datomic-pro-starter:0.9.5561
+    FROM vdart/vdart-datomic-pro-starter
     MAINTAINER John Doe "jdoe@example.org"
     CMD ["config/dev-transactor.properties"]
 
 ## Miscellany
 
-The Dockerfile **EXPOSES** port 4334 and establises a **VOLUME** at
+The Dockerfile **EXPOSES** ports 4334-6 and establises a **VOLUME** at
 `/opt/datomic-pro-$DATOMIC_VERSION/data`.
 
 ## License

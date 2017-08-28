@@ -4,36 +4,35 @@ MAINTAINER Ray McDermott "ray.mcdermott@vdartdigital.com"
 
 RUN apk add --no-cache unzip curl
 
-ONBUILD ARG version=0.9.5561
+ENV DATOMIC_VERSION=0.9.5561.56
+ENV DATOMIC_HOME /opt/datomic-pro-${DATOMIC_VERSION}
+ENV DATOMIC_DATA $DATOMIC_HOME/data
+ENV DATOMIC_URL https://my.datomic.com/repo/com/datomic/datomic-pro/$DATOMIC_VERSION/datomic-pro-$DATOMIC_VERSION.zip
 
-ONBUILD RUN echo Downloading Datomic Pro version $version
+RUN mkdir -p /opt/datomic-wrapper
+ADD transactor-wrapper.sh /opt/datomic-wrapper
+ADD datomic-postgres-setup.sh /opt/datomic-wrapper
 
-ONBUILD ENV DATOMIC_HOME /opt/datomic-pro-$version
-ONBUILD ENV DATOMIC_URL=https://my.datomic.com/repo/com/datomic/datomic-pro/$version/datomic-pro-$version.zip
-ONBUILD ENV DATOMIC_DATA $DATOMIC_HOME/data
-
-
-# Datomic Pro Starter as easy as 1-2-3
-# 1. Create a .credentials file containing user:pass
-# for downloading from my.datomic.com
+# NOTE: .credentials should be kept outside of version control, especially public repos
 ONBUILD ADD .credentials /tmp/.credentials
 
-# 2. Make sure to have a config/ folder in the same folder as your
-# Dockerfile containing the transactor property file you wish to use
-ONBUILD RUN curl -u $(cat /tmp/.credentials) -sSL $DATOMIC_URL -o /tmp/datomic.zip \
-            && unzip -q /tmp/datomic.zip -d /opt   \
-            && rm -f /tmp/datomic.zip              \
+ONBUILD RUN curl -u $(cat /tmp/.credentials) -SL $DATOMIC_URL -o /tmp/datomic.zip \
+            && unzip -q /tmp/datomic.zip -d /opt    \
+            && rm -f /tmp/datomic.zip               \
             && rm -f /tmp/.credentials
 
-ONBUILD ADD config $DATOMIC_HOME/config
+WORKDIR $DATOMIC_HOME
 
-ONBUILD WORKDIR $DATOMIC_HOME
+# Use Docker volumes to add a configuration file (more in README) and mount it on your Dockerfile
+#
+# CMD ["/opt/datomic-pro/config/tx.config"]
 
-# 3. Provide a CMD argument with the relative path to the
-# transactor.properties file it will supplement the ENTRYPOINT
+ENTRYPOINT ["./transactor-wrapper.sh"]
 
-ENTRYPOINT ["./bin/transactor"]
+# This VOLUME is to enable data to persist across executions for cases where
+# have Datomic data on a local disk (for example 'dev' storage).
+# Where an external DB storage service is used this volume is not used / needed.
 
-ONBUILD VOLUME $DATOMIC_DATA
+VOLUME $DATOMIC_DATA
 
 EXPOSE 4334 4335 4336

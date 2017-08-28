@@ -1,44 +1,97 @@
 # Datomic Pro Starter
 
-This Dockerfile defines a base image
-for [Datomic Pro Starter Edition](http://www.datomic.com/). It defines
-the necessary automation steps for running Datomic, while deferring
-all privileged, user-specific configuration to a derived image via
-**ONBUILD** instructions.
+This Dockerfile defines a base image for [Datomic Pro Starter Edition](http://www.datomic.com/). 
+It defines the necessary automation steps for running Datomic, while deferring
+all privileged, user-specific configuration to a derived image.
 
-This approach makes it trivial to customize your own Dockerfile to run
-any supported Datomic configuration. To do so, you need only to follow
-these steps:
+# How to download the Datomic install using *my* credentials?
 
-1. Create a `Dockerfile` that is based **FROM** this image
-2. Create a `.credentials` file containing your http user and password
-   for downloading from **my.datomic.com** in the form `user:pass`
-3. Create a `config` folder where your `Dockerfile` resides and place
-   your Datomic transactor.properties config file(s) within it
-4. Add a **CMD** instruction in your `Dockerfile` with the relative
-   path to that file e.g. **config/riak.properties**
+Create a `.credentials` file containing your http user and password for downloading from **my.datomic.com** in the form `user:pass`
 
-No other configuration is necessary. Simply **docker build** and
-**docker run** your image.
+# How to provide the Transactor configuration data to start Datomic?
 
-## Example Folder Structure
+There are two problems:
+- the configuration contains your license key which should remain confidential
+- the configuration is per storage service so should be a variable per env
+
+1. Create a `Docker volume` and add the configuration file(s) that you have tweaked to that volume
+
+```shell
+$ docker volume create datomic-config
+datomic-config
+$ docker volume inspect datomic-config # Sample output from MacOS...
+[
+    {
+        "Driver": "local",
+        "Labels": {},
+        "Mountpoint": "/var/lib/docker/volumes/datomic-config/_data",
+        "Name": "datomic-config",
+        "Options": {},
+        "Scope": "local"
+    }
+]
+```
+
+The volume `Mountpoint` is where you should place your config file
+
+```shell
+$ sudo mkdir -p /var/lib/docker/volumes/datomic-config/_data   # ensure the directory actually exists
+$ sudo cp config/dev-transactor.properties /var/lib/docker/volumes/datomic-config/_data/tx.config
+```
+
+2. Add the volume when starting this image with these flags to the docker run command:
+
+```shell
+$ docker run --mount source=datomic-config-vol,destination=/opt/datomic-pro/config ...
+```
+
+3. Add the location of the configuration file in the CMD entry of your Dockerfile
+
+```dockerfile
+CMD ["/opt/datomic-pro/config/tx.config"]
+```
+
+**NB You can call your mount points, folders, configuration file anything you please, this is just a serving suggestion**
+
+## Example Folder Contents
 
     .
     ├── .credentials
     ├── Dockerfile
-    └── config
-        └── dev-transactor.properties
 
 ## Example Dockerfile
 
-    FROM vdart/vdart-datomic-pro-starter
-    MAINTAINER John Doe "jdoe@example.org"
-    CMD ["config/dev-transactor.properties"]
+```dockerfile
+FROM vdart/vdart-datomic-pro-starter
+MAINTAINER John Doe "jdoe@example.org"
+CMD ["/opt/datomic-pro/config/tx.config"]
+```
+
+## Storage services
+
+### Postgres
+
+If you use the Postgres DB storage service, Datomic needs some configuration.
+
+This image has some code to automate those steps.
+
+Signal your use of Postgres DB by setting this environment variable in your Dockerfile
+
+```dockerfile
+ENV DATOMIC_STORAGE "postgres"
+```
+
+A script will run to ensure that a Postgres DB for Datomic has been created and properly set up.
+
+The DB has a fixed name, called `datomic`
 
 ## Miscellany
 
-The Dockerfile **EXPOSES** ports 4334-6 and establises a **VOLUME** at
-`/opt/datomic-pro-$DATOMIC_VERSION/data`.
+The Dockerfile **EXPOSES** ports 4334-6
+
+It establishes a **VOLUME** at `/opt/datomic-pro-$DATOMIC_VERSION/data`.
+
+*This volume is useful for persisting data across runs when using the `dev` transactor storage service.*
 
 ## License
 

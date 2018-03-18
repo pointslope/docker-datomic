@@ -31,8 +31,8 @@ No other configuration is necessary. Simply **docker build** and
 
 ## Example Dockerfile
 
-    FROM pointslope/datomic-pro-starter:0.9.5561
-    MAINTAINER John Doe "jdoe@example.org"
+    FROM optimis/datomic-pro-starter:0.9.5561
+    MAINTAINER Optimis Services, Inc. "ops@optimiscorp.org"
     CMD ["config/dev-transactor.properties"]
 
 ## Miscellany
@@ -44,7 +44,7 @@ The Dockerfile **EXPOSES** port 4334 and establises a **VOLUME** at
 
 The MIT License (MIT)
 
-Copyright (c) 2014-2017 Point Slope, LLC.
+Copyright (c) 2018-2020 Optimis Services, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

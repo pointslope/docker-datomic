@@ -1,8 +1,8 @@
 FROM clojure:lein-2.6.1-alpine
 
-MAINTAINER Christian Romney "cromney@pointslope.com"
+MAINTAINER Optimis Services, Inc. "ops@optimiscorp.com"
 
-ENV DATOMIC_VERSION 0.9.5561
+ENV DATOMIC_VERSION 0.9.5661
 ENV DATOMIC_HOME /opt/datomic-pro-$DATOMIC_VERSION
 ENV DATOMIC_DATA $DATOMIC_HOME/data
 
@@ -23,7 +23,7 @@ ONBUILD ADD config $DATOMIC_HOME/config
 
 WORKDIR $DATOMIC_HOME
 RUN echo DATOMIC HOME: $DATOMIC_HOME
-ENTRYPOINT ["./bin/transactor"]
+ENTRYPOINT ["./bin/transactor" "-Xmx4g" "-Xms4g"]
 
 # 3. Provide a CMD argument with the relative path to the
 # transactor.properties file it will supplement the ENTRYPOINT

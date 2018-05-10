@@ -1,4 +1,4 @@
-FROM clojure:lein-2.6.1-alpine
+FROM clojure:lein-alpine
 
 MAINTAINER Kenji Nakamura "kanakamura@parksidesecurities.com"
 

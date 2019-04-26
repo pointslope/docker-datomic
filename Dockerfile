@@ -2,7 +2,7 @@ FROM clojure:lein-alpine
 
 MAINTAINER Kenji Nakamura "kanakamura@parksidesecurities.com"
 
-ENV DATOMIC_VERSION 0.9.5697
+ENV DATOMIC_VERSION 0.9.5786
 ENV DATOMIC_HOME /opt/datomic-pro-$DATOMIC_VERSION
 ENV DATOMIC_DATA $DATOMIC_HOME/data
 

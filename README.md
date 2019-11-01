@@ -40,6 +40,10 @@ No other configuration is necessary. Simply **docker build** and
 The Dockerfile **EXPOSES** port 4334 and establises a **VOLUME** at
 `/opt/datomic-pro-$DATOMIC_VERSION/data`.
 
+## Upgrade Datomic for parkside environment
+
+Refer: https://parkside-securities.quip.com/b6zGAt3nA4Fh/Datomic-Upgrade
+
 ## License
 
 The MIT License (MIT)

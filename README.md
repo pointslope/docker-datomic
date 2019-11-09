@@ -31,7 +31,7 @@ No other configuration is necessary. Simply **docker build** and
 
 ## Example Dockerfile
 
-    FROM quay.io/parkside-securities/datomic-pro-starter:0.9.5951
+    FROM quay.io/parkside-securities/datomic-pro-starter:0.9.5981
     MAINTAINER John Doe "jdoe@example.org"
     CMD ["config/dev-transactor.properties"]
 

@@ -2,7 +2,7 @@ FROM clojure:lein-alpine
 
 MAINTAINER Kenji Nakamura "kanakamura@parksidesecurities.com"
 
-ENV DATOMIC_VERSION 0.9.5951
+ENV DATOMIC_VERSION 0.9.5981
 ENV DATOMIC_HOME /opt/datomic-pro-$DATOMIC_VERSION
 ENV DATOMIC_DATA $DATOMIC_HOME/data
 
@@ -18,8 +18,6 @@ ONBUILD ADD .credentials /tmp/.credentials
 ONBUILD RUN curl -u $(cat /tmp/.credentials) -SL https://my.datomic.com/repo/com/datomic/datomic-pro/$DATOMIC_VERSION/datomic-pro-$DATOMIC_VERSION.zip -o /tmp/datomic.zip \
   && unzip /tmp/datomic.zip -d /opt \
   && rm -f /tmp/datomic.zip
-
-ONBUILD ADD config $DATOMIC_HOME/config
 
 WORKDIR $DATOMIC_HOME
 RUN echo DATOMIC HOME: $DATOMIC_HOME

@@ -1,2 +1,0 @@
-#!/bin/bash
-grep DATOMIC_VERSION Dockerfile | head -n1 | awk '{print $3}'

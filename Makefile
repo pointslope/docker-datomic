@@ -1,5 +1,5 @@
-DOCKER_IMAGE=pointslope/datomic-pro-starter
-DOCKER_TAG?=$(shell ./datomic-version)
+DOCKER_IMAGE=simplevalue/datomic-pro-template
+DOCKER_TAG?=0.1.0
 
 .PHONY: all clean info
 
@@ -11,3 +11,7 @@ clean:
 
 info:
 	@echo "Docker image: $(DOCKER_IMAGE):$(DOCKER_TAG)"
+
+push:
+	docker push $(DOCKER_IMAGE):$(DOCKER_TAG)
+

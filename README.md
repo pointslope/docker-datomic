@@ -1,44 +1,47 @@
-# Datomic Pro Starter
+# Datomic Pro Docker Template
 
-This Dockerfile defines a base image
-for [Datomic Pro Starter Edition](http://www.datomic.com/). It defines
-the necessary automation steps for running Datomic, while deferring
-all privileged, user-specific configuration to a derived image via
-**ONBUILD** instructions.
+This Dockerfile provides a template to build a Docker image for
+[Datomic Pro](http://www.datomic.com/). It defines the necessary
+automation steps for running Datomic, while deferring all privileged,
+user-specific configuration to a derived image via **ONBUILD**
+instructions.
 
 This approach makes it trivial to customize your own Dockerfile to run
 any supported Datomic configuration. To do so, you need only to follow
 these steps:
 
 1. Create a `Dockerfile` that is based **FROM** this image
-2. Create a `.credentials` file containing your http user and password
+2. Create a `.version` file with the Datomic Pro version that should
+   be installed.
+3. Create a `.credentials` file containing your http user and password
    for downloading from **my.datomic.com** in the form `user:pass`
-3. Create a `config` folder where your `Dockerfile` resides and place
+4. Create a `config` folder where your `Dockerfile` resides and place
    your Datomic transactor.properties config file(s) within it
-4. Add a **CMD** instruction in your `Dockerfile` with the relative
-   path to that file e.g. **config/riak.properties**
-
-No other configuration is necessary. Simply **docker build** and
-**docker run** your image.
+5. Add a **CMD** instruction in your `Dockerfile` with the relative
+   path to that file e.g. **config/transactor.properties**
 
 ## Example Folder Structure
 
     .
     ├── .credentials
+    ├── .version
     ├── Dockerfile
     └── config
-        └── dev-transactor.properties
+        └── transactor.properties
 
 ## Example Dockerfile
 
-    FROM pointslope/datomic-pro-starter:0.9.5561
-    MAINTAINER John Doe "jdoe@example.org"
-    CMD ["config/dev-transactor.properties"]
+    FROM simplevalue/datomic-pro-template:0.1.0
+    CMD ["config/transactor.properties"]
 
 ## Miscellany
 
-The Dockerfile **EXPOSES** port 4334 and establises a **VOLUME** at
-`/opt/datomic-pro-$DATOMIC_VERSION/data`.
+The Dockerfile **EXPOSES** port 4334. Datomic will reside in the
+folder `/opt/datomic`. If you use Datomic's dev protocol and you want
+to keep the data, then mount an appropriate volume into the container,
+example:
+
+    docker run -v $PWD/data:/opt/datomic/data ...
 
 ## License
 

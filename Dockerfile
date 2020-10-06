@@ -1,32 +1,20 @@
-FROM clojure:lein-2.6.1-alpine
+FROM openjdk:8-jre-alpine
 
-MAINTAINER Christian Romney "cromney@pointslope.com"
+ENV DATOMIC_HOME /opt/datomic
 
-ENV DATOMIC_VERSION 0.9.5561
-ENV DATOMIC_HOME /opt/datomic-pro-$DATOMIC_VERSION
-ENV DATOMIC_DATA $DATOMIC_HOME/data
+RUN apk add --no-cache unzip curl bash
 
-RUN apk add --no-cache unzip curl
-
-# Datomic Pro Starter as easy as 1-2-3
-# 1. Create a .credentials file containing user:pass
-# for downloading from my.datomic.com
+ONBUILD ADD .version /tmp/.version
 ONBUILD ADD .credentials /tmp/.credentials
-
-# 2. Make sure to have a config/ folder in the same folder as your
-# Dockerfile containing the transactor property file you wish to use
-ONBUILD RUN curl -u $(cat /tmp/.credentials) -SL https://my.datomic.com/repo/com/datomic/datomic-pro/$DATOMIC_VERSION/datomic-pro-$DATOMIC_VERSION.zip -o /tmp/datomic.zip \
+ONBUILD RUN export DATOMIC_VERSION=$(cat /tmp/.version) && curl -u $(cat /tmp/.credentials) -SL https://my.datomic.com/repo/com/datomic/datomic-pro/$DATOMIC_VERSION/datomic-pro-$DATOMIC_VERSION.zip -o /tmp/datomic.zip \
   && unzip /tmp/datomic.zip -d /opt \
-  && rm -f /tmp/datomic.zip
+  && rm -f /tmp/datomic.zip \
+  && mv /opt/datomic-pro-$DATOMIC_VERSION/* $DATOMIC_HOME
 
 ONBUILD ADD config $DATOMIC_HOME/config
 
 WORKDIR $DATOMIC_HOME
 RUN echo DATOMIC HOME: $DATOMIC_HOME
 ENTRYPOINT ["./bin/transactor"]
-
-# 3. Provide a CMD argument with the relative path to the
-# transactor.properties file it will supplement the ENTRYPOINT
-VOLUME $DATOMIC_DATA
 
 EXPOSE 4334 4335 4336
